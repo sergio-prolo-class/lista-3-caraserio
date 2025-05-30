@@ -25,11 +25,11 @@ class Filme {
         return genero;
     }
 
-    public LocalDate lancamento() {
+    public LocalDate getLancamento() {
         return lancamento;
     }
  
-    
+    //metodo construtor do filme
     public String toString() {
         return String.format("Filme{titulo='%s', genero='%s', lancamento=%s}", titulo, genero, lancamento);
     }
@@ -55,7 +55,7 @@ class Catalogo {
     }
 
     public void ordemLancamento() {
-        filmes.sort(Comparator.comparing(Filme::getDataLancamento));
+        filmes.sort(Comparator.comparing(Filme::getLancamento));
     }
 
     public void mostrarCatalogo() {
@@ -73,15 +73,15 @@ public class Main {
         catalogo.adicionarFilme(new Filme("Forrest Gump", "Drama", LocalDate.of(1994, 7, 6)));
 
         System.out.println("Ordenados por título:");
-        catalogo.ordenarPorTitulo();
-        catalogo.exibirCatalogo();
+        catalogo.ordemTitulo();
+        catalogo.mostrarCatalogo();
 
         System.out.println("\nOrdenados por gênero:");
-        catalogo.ordenarPorGenero();
-        catalogo.exibirCatalogo();
+        catalogo.ordemGenero();
+        catalogo.mostrarCatalogo();
 
         System.out.println("\nOrdenados por data de lançamento:");
-        catalogo.ordenarPorDataLancamento();
-        catalogo.exibirCatalogo();
+        catalogo.ordemLancamento();
+        catalogo.mostrarCatalogo();
     }
 }
