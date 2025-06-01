@@ -3,12 +3,33 @@
  */
 package ifsc.poo;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.Scanner;
 
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n--- MENU PRINCIPAL ---");
+            System.out.println("1 - Acessar Catálogo de Filmes");
+            System.out.println("2 - Acessar Atendimento de Clientes");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            switch (opcao) {
+                case 1:
+                    catalogo.main(null); // chama o main da classe Catalogo
+                    break;
+                case 2:
+                    atendimento.main(null); // chama o main da classe Atendimento
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    return;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        }
     }
 }
