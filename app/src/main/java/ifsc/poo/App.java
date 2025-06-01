@@ -10,10 +10,10 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n--- MENU PRINCIPAL ---");
-            System.out.println("1 - Acessar Catálogo de Filmes");
-            System.out.println("2 - Acessar Atendimento de Clientes");
-            System.out.println("0 - Sair");
+            System.out.println("\n   MENU PRINCIPAL  ");
+            System.out.println("1 Acessar Catálogo de Filmes");
+            System.out.println("2 Acessar Atendimento de Clientes");
+            System.out.println("0 Sair");
             System.out.print("Escolha uma opção: ");
 
             int opcao = scanner.nextInt();
@@ -25,10 +25,10 @@ public class App {
                     atendimento.main(null); // chama o main da classe Atendimento
                     break;
                 case 0:
-                    System.out.println("Saindo...");
+                    System.out.println("Fim");
                     return;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Tente novamente");
             }
         }
     }
