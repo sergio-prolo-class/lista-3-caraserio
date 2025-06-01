@@ -1,0 +1,153 @@
+package ifsc.poo;
+import java.util.*;
+
+class Cliente {
+    private String nome;
+    private int idade;
+    private String numero;
+
+    Cliente(String nome, int idade, String numero) {
+        this.nome = nome;
+        this.idade = idade;
+        this.numero = numero;
+    }
+
+    boolean equalsNumero(String numeroComparado) {
+        return numero.equals(numeroComparado);
+    }
+
+    String getNome() { return nome; }
+    int getIdade() { return idade; }
+    String getNumero() { return numero; }
+}
+
+class Solicitacao {
+    Cliente cliente;
+    String descricao;
+
+    Solicitacao(Cliente cliente, String descricao) {
+        this.cliente = cliente;
+        this.descricao = descricao;
+    }
+}
+
+public class Atendimento {
+    static Scanner scanner = new Scanner(System.in);
+    Map<String, Cliente> clientes = new HashMap<>(); //ajudar na ordem
+    Queue<Solicitacao> fila = new LinkedList<>(); //primeiro a entrar , primeiro a sair
+    List<Cliente> clientesAtendidos = new ArrayList<>();
+
+    void iniciar() {
+        while (true) {
+
+            clientes.put("1111", new Cliente("Ana", 25, "1111"));
+            clientes.put("2222", new Cliente("Bruno", 32, "2222"));
+            clientes.put("3333", new Cliente("Carla", 40, "3333"));
+
+            System.out.println("\nMenu:");
+            System.out.println("1 - Registrar solicitação");
+            System.out.println("2 - Listar números dos clientes");
+            System.out.println("3 - Mostrar próximo cliente");
+            System.out.println("4 - Atender próximo");
+            System.out.println("5 - Listar idades atendidos");
+            System.out.println("6 - Listar números na fila");
+            System.out.println("0 - Sair");
+            System.out.print("Opção: ");
+
+            int opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Número do cliente: ");
+                    String numeroDigitado = scanner.nextLine();
+                    Cliente cliente = clientes.get(numeroDigitado);
+
+                    if (cliente == null) {
+                        System.out.print("Nome: ");
+                        String nome = scanner.nextLine();
+                        System.out.print("Idade: ");
+                        int idade = scanner.nextInt();
+                        scanner.nextLine();
+                        cliente = new Cliente(nome, idade, numeroDigitado);
+                        clientes.put(numeroDigitado, cliente);
+                        System.out.println("Cliente cadastrado!");
+                    } else {
+                        System.out.println("Cliente encontrado: " + cliente.getNome());
+                    }
+
+                    System.out.print("Descrição da solicitação: ");
+                    String descricaoSolicitacao = scanner.nextLine();
+                    fila.add(new Solicitacao(cliente, descricaoSolicitacao));
+                    System.out.println("Solicitação adicionada.");
+                    break;
+
+                case 2:
+                    if (clientes.isEmpty()) {
+                        System.out.println("Nenhum cliente cadastrado.");
+                    } else {
+                        System.out.println("Números dos clientes:");
+                        for (Cliente clienteC : clientes.values()) {
+                            System.out.println(clienteC.getNumero());
+                        }
+                    }
+                    break;
+
+                case 3:
+                    Solicitacao proximaSolicitacao = fila.peek();
+                    if (proximaSolicitacao == null) {
+                        System.out.println("Fila vazia.");
+                    } else {
+                        System.out.println("Próximo cliente: " + proximaSolicitacao.cliente.getNome() + " (" + proximaSolicitacao.cliente.getNumero() + ")");
+                        System.out.println("Solicitação: " + proximaSolicitacao.descricao);
+                    }
+                    break;
+
+                case 4:
+                    Solicitacao solicitacaoParaAtender = fila.poll();
+                    if (solicitacaoParaAtender == null) {
+                        System.out.println("Fila vazia.");
+                    } else {
+                        System.out.println("Atendendo: " + solicitacaoParaAtender.cliente.getNome());
+                        System.out.println("Descrição: " + solicitacaoParaAtender.descricao);
+                        clientesAtendidos.add(solicitacaoParaAtender.cliente);
+                    }
+                    break;
+
+                case 5:
+                    if (clientesAtendidos.isEmpty()) {
+                        System.out.println("Nenhum cliente atendido ainda.");
+                    } else {
+                        System.out.println("Idades dos atendidos:");
+                        for (Cliente clienteAtendido : clientesAtendidos) {
+                            System.out.println(clienteAtendido.getNome() + ": " + clienteAtendido.getIdade());
+                        }
+                    }
+                    break;
+
+                case 6:
+                    if (fila.isEmpty()) {
+                        System.out.println("Fila vazia.");
+                    } else {
+                        System.out.println("Números na fila:");
+                        for (Solicitacao solicitacao : fila) {
+                            System.out.println(solicitacao.cliente.getNumero());
+                        }
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Encerrando...");
+                    return;
+
+                default:
+                    System.out.println("Opção inválida");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Atendimento().iniciar();
+
+            
+    }
+}
