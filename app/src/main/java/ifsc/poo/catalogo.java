@@ -81,6 +81,7 @@ public class catalogo {
             System.out.println("0 Fim");
 
             int opcao = scanner.nextInt();
+                scanner.nextLine();
             switch (opcao) {
                 case 1:
                     catalogo.ordemTitulo();
