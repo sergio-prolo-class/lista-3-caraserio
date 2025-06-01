@@ -26,7 +26,6 @@ class Filme {
         return lancamento;
     }
 
-    //metodo construtor do filme
     public String toString() {
         return String.format("Filme{titulo='%s', genero='%s', lancamento=%s}", titulo, genero, lancamento);
     }
@@ -35,50 +34,79 @@ class Filme {
 class Catalogo {
     private List<Filme> filmes;
 
-    public Catalogo() {
-        this.filmes = new ArrayList<>();
-    }
+    public Catalogo() {this.filmes = new ArrayList<>();}
+    
+        
+    public void adicionarFilme(Filme filme) {filmes.add(filme); }
+   
+        
+    public void ordemTitulo() {filmes.sort(Comparator.comparing(Filme::getTitulo));}
+    
+        
 
-    public void adicionarFilme(Filme filme) {
-        filmes.add(filme);
-    }
+    public void ordemGenero() {filmes.sort(Comparator.comparing(Filme::getGenero));}
+    
+        
 
-    public void ordemTitulo() {
-        filmes.sort(Comparator.comparing(Filme::getTitulo));
-    }
+    public void ordemLancamento() {filmes.sort(Comparator.comparing(Filme::getLancamento));}
+    
+        
 
-    public void ordemGenero() {
-        filmes.sort(Comparator.comparing(Filme::getGenero));
-    }
-
-    public void ordemLancamento() {
-        filmes.sort(Comparator.comparing(Filme::getLancamento));
-    }
-
-    public void mostrarCatalogo() {
-        filmes.forEach(System.out::println);
-    }
+    public void mostrarCatalogo() {filmes.forEach(System.out::println);}
+    
+        
 }
 
 public class catalogo {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in); //Cria a opção do case
         Catalogo catalogo = new Catalogo();
-
+            //Filmes aleatorios com datas erradas kkkkkkk
         catalogo.adicionarFilme(new Filme("O Poderoso Chefão", "Crime", LocalDate.of(1972, 3, 24)));
-        catalogo.adicionarFilme(new Filme("O Senhor dos Anéis: A Sociedade do Anel", "Fantasia", LocalDate.of(2001, 12, 19)));
-        catalogo.adicionarFilme(new Filme("Pulp Fiction", "Crime", LocalDate.of(1994, 10, 14)));
-        catalogo.adicionarFilme(new Filme("Forrest Gump", "Drama", LocalDate.of(1994, 7, 6)));
+        catalogo.adicionarFilme(new Filme("O lar da crianças peculiares", "Fantasia", LocalDate.of(2001, 12, 19)));
+        catalogo.adicionarFilme(new Filme("Sherlok", "Crime", LocalDate.of(1994, 10, 14)));
+        catalogo.adicionarFilme(new Filme("A cabana", "Drama", LocalDate.of(1994, 7, 6)));
 
-        System.out.println("Ordenados por título:");
-        catalogo.ordemTitulo();
-        catalogo.mostrarCatalogo();
+        while (true) {
+            System.out.println("\nEscolha uma opção:");
+            System.out.println("1 Ordem de filmes por título");
+            System.out.println("2 Ordem de filmes filmes por gênero");
+            System.out.println("3 Ordem de filmes por data de lançamento");
+            System.out.println("4 Adicionar filme");
+            System.out.println("0 Fim");
 
-        System.out.println("\nOrdenados por gênero:");
-        catalogo.ordemGenero();
-        catalogo.mostrarCatalogo();
+            int opcao = scanner.nextInt();
+            
 
-        System.out.println("\nOrdenados por data de lançamento:");
-        catalogo.ordemLancamento();
-        catalogo.mostrarCatalogo();
+            switch (opcao) {
+                case 1:
+                    catalogo.ordemTitulo();
+                    catalogo.mostrarCatalogo();
+                    break;
+                case 2:
+                    catalogo.ordemGenero();
+                    catalogo.mostrarCatalogo();
+                    break;
+                case 3:
+                    catalogo.ordemLancamento();
+                    catalogo.mostrarCatalogo();
+                    break;
+                case 4:
+                    System.out.print("Digite o título do filme: ");
+                    String titulo = scanner.nextLine();
+                    System.out.print("Digite o gênero do filme: ");
+                    String genero = scanner.nextLine();
+                    System.out.print("Digite a data de lançamento (ano-mes-dia): ");
+                    String dataStr = scanner.nextLine();
+                    LocalDate data = LocalDate.parse(dataStr);
+                    catalogo.adicionarFilme(new Filme(titulo, genero, data));
+                    System.out.println("Filme adicionado com sucesso!");
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Tente novamente");
+            }
+        }
     }
 }
