@@ -31,7 +31,7 @@ class Solicitacao {
     }
 }
 
-public class Atendimento {
+public class atendimento {
     static Scanner scanner = new Scanner(System.in);
     Map<String, Cliente> clientes = new HashMap<>(); //ajudar na ordem
     Queue<Solicitacao> fila = new LinkedList<>(); //primeiro a entrar , primeiro a sair
@@ -55,7 +55,7 @@ public class Atendimento {
             System.out.print("Opção: ");
 
             int opcao = scanner.nextInt();
-
+                scanner.nextLine();
             switch (opcao) {
                 case 1:
                     System.out.print("Número do cliente: ");
@@ -146,7 +146,7 @@ public class Atendimento {
     }
 
     public static void main(String[] args) {
-        new Atendimento().iniciar();
+        new atendimento().iniciar();
 
             
     }
